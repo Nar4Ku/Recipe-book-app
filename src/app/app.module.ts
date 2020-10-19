@@ -20,6 +20,8 @@ import { DropdownDirective } from './shared/directives/dropdown.directive';
 import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
 import { AuthComponent } from './auth/components/auth/auth.component';
 import { AuthInterceptorService } from './auth/services/auth-interceptor.service';
+import { AlertComponent } from './shared/alert/alert.component';
+import { PlaceholderDirective } from './shared/directives/placeholder.directive';
 
 @NgModule({
   declarations: [
@@ -36,6 +38,8 @@ import { AuthInterceptorService } from './auth/services/auth-interceptor.service
     RecipeEditComponent,
     AuthComponent,
     LoadingSpinnerComponent,
+    AlertComponent,
+    PlaceholderDirective,
   ],
   imports: [
     BrowserModule,
