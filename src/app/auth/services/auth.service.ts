@@ -3,7 +3,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { catchError, tap } from 'rxjs/operators';
 import { BehaviorSubject, throwError } from 'rxjs';
 import { Router } from '@angular/router';
-
+import { environment } from '../../../environments/environment';
 import { User } from '../user.model';
 
 export interface AuthResponseData {
@@ -20,7 +20,7 @@ export interface AuthResponseData {
   providedIn: 'root'
 })
 export class AuthService {
-  private readonly API_KEY = 'AIzaSyAGg6muFtXKmaWRfId2uml26o2XAIb_748';
+  private readonly API_KEY = environment.firebaseApiKey;
   private readonly signUpEndPoint = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=';
   private readonly signInEnnPoint = 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=';
   private tokenExpirationTime: any;
