@@ -30,7 +30,7 @@ export function authReducer(state: State = initialState, action: AuthActions) {
             return { ...state, authError: null };
 
         case LOGOUT:
-            return { ...state, authError: null, user: null };
+            return { ...state, user: null };
 
         default:
             return state;

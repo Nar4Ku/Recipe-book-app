@@ -28,7 +28,8 @@ const handleAuthentication = (expiresIn: number, email: string, userId: string, 
         email: email,
         userId: userId,
         token: token,
-        expirationDate: expirationDate
+        expirationDate: expirationDate,
+        redirect: true
     });
 };
 
@@ -86,7 +87,7 @@ export class AuthEffects {
     authLogin = this.actions$.pipe(
         ofType(AuthActions.LOGIN_START),
         switchMap((authData: AuthActions.LoginStart) => {
-            return this.http.post<AuthResponseData>(`${environment.firebaseSignUpEndPoint}${environment.firebaseApiKey}`, {
+            return this.http.post<AuthResponseData>(`${environment.firebaseSignInEndPoint}${environment.firebaseApiKey}`, {
                 email: authData.payload.email,
                 password: authData.payload.password,
                 returnSecureToken: true
@@ -120,7 +121,8 @@ export class AuthEffects {
                     email: loadedUser.email,
                     userId: loadedUser.id,
                     token: loadedUser.token,
-                    expirationDate: new Date(userData._tokenExpirationDate)
+                    expirationDate: new Date(userData._tokenExpirationDate),
+                    redirect: false
                 });
             }
             return { type: 'DUMMY' };
@@ -130,7 +132,11 @@ export class AuthEffects {
     @Effect({ dispatch: false })
     authRedirect = this.actions$.pipe(
         ofType(AuthActions.AUTHENTICATION_SUCCESS),
-        tap(() => this.router.navigate(['/']))
+        tap((authSuccessAction: AuthActions.AuthenticationSucess) => {
+            if (authSuccessAction.payload.redirect) {
+                this.router.navigate(['/']);
+            }
+        })
     );
 
     @Effect({ dispatch: false })
